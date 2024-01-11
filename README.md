@@ -1,3 +1,3 @@
-# AI_Modu_Python
+# 모두의 연구소 Django 백엔드(AI 백엔드) 과정
 
-# 모두의 연구소 파이썬 기초 저장소입니다.
+* Python
