@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>emmet</title>
+    <style>
+        #one{
+            pos
+            d
+            v
+        }
+    </style>
+</head>
+<body>
+    <!-- 정말 많이 사용하는 것들 -->
+    h1
+    h1{hello}
+    h1{hello}+p{world}
+    table>tr>td+td+td^tr>td*3
+    table>tr>td*3^tr>td*3
+    table>(tr>td*3)*2
+    <!-- ^는 1계단 상위로 올라갑니다. -->
+    div>div>div+p^code
+    lorem
+    <!-- 10개 단어 -->
+    lorem10
+    <!-- 10개 문장 -->
+    lorem*10
+    .class1
+    .class1.class2.class3
+    #one.class1.class2
+
+    <!-- 빈도가 좀 적은 것 -->
+    p[data='1']
+    h${hello}*6
+    p.className${hello}*6
+    input:time
+    bq
+</body>
+</html>

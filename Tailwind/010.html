@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <section>
+        <h2>grid</h2>
+        <div class="grid grid-cols-3 gap-4">
+            <div class="border-2 border-blue-600">hello</div>
+            <div class="border-2 border-blue-600">hello</div>
+            <div class="border-2 border-blue-600">hello</div>
+            <div class="border-2 border-blue-600">hello</div>
+            <div class="border-2 border-blue-600">hello</div>
+            <div class="border-2 border-blue-600">hello</div>
+        </div>
+    </section>
+
+    <section>
+        <h2>grid 반응형</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
+            <div class="border-2 border-blue-600">hello</div>
+            <div class="border-2 border-blue-600">hello</div>
+            <div class="border-2 border-blue-600">hello</div>
+            <div class="border-2 border-blue-600">hello</div>
+            <div class="border-2 border-blue-600">hello</div>
+            <div class="border-2 border-blue-600">hello</div>
+        </div>
+    </section>
+
+    <section>
+        <h2>grid row 지정</h2>
+        <div class="grid grid-cols-4 grid-rows-2">
+            <div class="col-span-2 border-2 border-blue-600">hello1</div>
+            <div class="border-2 border-blue-600">hello2</div>
+            <div class="border-2 border-blue-600">hello3</div>
+            <div class="border-2 border-blue-600">hello4</div>
+            <div class="border-2 border-blue-600">hello5</div>
+            <div class="border-2 border-blue-600">hello6</div>
+        </div>
+
+        <h2>grid row 지정</h2>
+        <div class="grid grid-cols-4 grid-rows-2">
+            <div class="row-span-2 border-2 border-blue-600">hello1</div>
+            <div class="border-2 border-blue-600">hello2</div>
+            <div class="border-2 border-blue-600">hello3</div>
+            <div class="border-2 border-blue-600">hello4</div>
+            <div class="border-2 border-blue-600">hello5</div>
+            <div class="border-2 border-blue-600">hello6</div>
+        </div>
+
+        <h2>grid row 지정</h2>
+        <div class="grid grid-cols-4 grid-rows-2">
+            <div class="row-span-2 col-span-2 border-2 border-blue-600">hello1</div>
+            <div class="border-2 border-blue-600">hello2</div>
+            <div class="border-2 border-blue-600">hello3</div>
+            <div class="border-2 border-blue-600">hello4</div>
+            <div class="border-2 border-blue-600">hello5</div>
+            <div class="border-2 border-blue-600">hello6</div>
+        </div>
+    </section>
+</body>
+</html>
