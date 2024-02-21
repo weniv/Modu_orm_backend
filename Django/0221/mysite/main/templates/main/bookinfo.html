@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <h1>위니브 책 모음</h1>
+    {% for book_title, book_cover in bookinfo %}
+        <p>{{book_title}}</p>
+        <img width="100px" src="{{book_cover}}" alt="{{book_title}}">
+    {% endfor %}
+    <script>
+        // 아래 데이터에는 애러 나는 것처럼 보이지만 실제 애러는 아닙니다.
+        // 아래처럼 자바스크립트 코드 어딘가에도 코드를 넣을 수 있습니다.
+        let bookinfo = {{bookinfo|safe}};
+    </script>
+</body>
+</html>

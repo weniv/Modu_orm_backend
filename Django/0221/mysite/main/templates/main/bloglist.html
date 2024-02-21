@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bloglist</title>
+</head>
+<body>
+    <h1>bloglist 페이지 입니다.</h1>
+    <ul>
+        {# 주석 입니다! #}
+        {% for i in blogitems %}
+        <li><a href="/blog/{{ i.id }}">{{ i.title }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

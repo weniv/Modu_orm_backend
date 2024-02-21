@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>blogdetails</title>
+</head>
+<body>
+    <h1>blogdetails</h1>
+    <h2>{{ blog.title }}</h2>
+    <p>{{ blog.author }}</p>
+    <p>{{ blog.content }}</p>
+
+    <p>{{ language }}</p>
+    <p>{{ language.0 }}</p>
+    {% for i in language %}
+        <p>이건 {{ i }}야!!!!</p>
+    {% endfor %}
+</body>
+</html>
