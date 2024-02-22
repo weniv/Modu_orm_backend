@@ -1,0 +1,10 @@
+{% extends 'base/base.html '%}
+
+{% block contents %}
+<h1>blogdetail</h1>
+<h2>{{ blog.title }}</h2>
+<p>{{ blog.content }}</p>
+<p>{{ blog.created_at }}</p>
+<p>{{ blog.updated_at }}</p>
+<a href="{% url 'blog_list' %}">목록</a>
+{% endblock %}

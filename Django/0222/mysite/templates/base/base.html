@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>weniv blog</title>
+</head>
+<body>
+    <header>
+        <h1>weniv blog</h1>
+        <nav>
+            <ul>
+                <li>메뉴1</li>
+                <li>메뉴2</li>
+                <li>메뉴3</li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block contents %}
+        <p>test 이어서 써집니다1</p>
+        <p>test 이어서 써집니다2</p>
+        {% endblock %}
+    </main>
+
+    {% block binky %}
+    {% endblock %}
+
+    <footer>
+        <p>저작권은 weniv에게 있습니다.</p>
+    </footer>
+
+    {% block mura %}
+    {% endblock %}
+</body>
+</html>

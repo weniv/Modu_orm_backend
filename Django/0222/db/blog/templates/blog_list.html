@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <h1>bloglist</h1>
+    <ul>
+        {% for blog in blog_list %}
+        <li>
+            {{ forloop.counter }}
+            {# 주석입니다. 'url 'blog_detail' blog.id' 와 같은 형태는 urls.py에서 blog_detail이라는 name을 가진 url을 찾습니다. 그걸로만 연결을 해주는데 뒤에 값이 들어가야 할 경우, 파라미터가 있는 경우! 뒤에 띄어쓰기로 아규먼트를 넣어줄 수 있습니다. 결국에는 blog.id가 blog_detail에 pk로 들어가는 것입니다. #}
+            <a href="{% url 'blog_detail' blog.id %}">{{ blog.title }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
