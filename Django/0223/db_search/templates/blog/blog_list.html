@@ -1,0 +1,13 @@
+<h1>게시판</h1>
+<form action="" method="get">
+    <input name="q" type="search">
+    <button type="submit">검색</button>
+</form>
+<ul>
+    {% for blog_detail in db %}
+    <li>
+        <a href="{% url 'blog_detail' blog_detail.id %}">{{ blog_detail.title }}</a>
+        <p>{{blog_detail.contents}}</p>
+    </li>
+    {% endfor %}
+</ul>

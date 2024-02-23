@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .card {
+            border: 1px solid #000;
+            margin: 10px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        const container = document.createElement('div');
+        container.className = 'container';
+        fetch('http://test.api.weniv.co.kr/mall').then(function(response){
+            return response.json();
+        }).then((data) => {
+            data.forEach(element => {
+                const card = `
+                    <div class='card'>
+                        <img src="https://test.api.weniv.co.kr/${element.thumbnailImg}" alt="${element.productName}">
+                        <h2>${element.productName}</h2>
+                        <p>${element.price}</p>
+                    </div>
+                `;
+                container.innerHTML += card;
+            });
+        });
+        document.body.appendChild(container);
+    </script>
+</body>
+</html>

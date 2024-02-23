@@ -1,0 +1,12 @@
+<h1>게시판</h1>
+<p>{{db.title}}</p>
+<p>{{db.contents}}</p>
+<p>{{db.updated_at}}</p>
+{% if db.main_image %}
+<!-- db.main_image.url: /media/a.jpg -->
+<!-- db.main_image.url: /media/blog/2310/11/a.jpg와 같이 저장합니다. -->
+<img src="{{ db.main_image.url }}" alt="">
+{% endif %}
+<a href="{% url 'blog_list' %}">뒤로가기</a>
+<p>{{db.main_image}}</p> 
+<!-- db.main_image: a.jpg -->
