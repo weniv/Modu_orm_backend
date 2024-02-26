@@ -1,0 +1,7 @@
+<p style="color:red;">{{ error }}</p>
+<form action="{% url 'blog_update' pk %}" method="post" enctype="multipart/form-data">
+    {# 해킹 공격 방어를 위한 토큰입니다. #}
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">저장</button>
+</form>

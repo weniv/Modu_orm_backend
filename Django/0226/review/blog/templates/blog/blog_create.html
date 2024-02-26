@@ -1,0 +1,5 @@
+<form action="{% url 'blog_create' %}" enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">저장</button>
+</form>

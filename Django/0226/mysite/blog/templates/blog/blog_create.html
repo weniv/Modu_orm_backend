@@ -1,0 +1,38 @@
+<p style="color:red;">{{ error }}</p>
+<form action="{% url 'blog_create'%}" method="post" enctype="multipart/form-data">
+    {# 해킹 공격 방어를 위한 토큰입니다. #}
+    {% csrf_token %}
+
+    {% comment %}
+
+        <!-- 주석입니다. 나중에 여러개를 해보세요. 제공하고 있는 형태가 많습니다. -->
+        <!-- https://docs.djangoproject.com/en/5.0/ref/forms/api/ -->
+        {{ form }}
+        {{ form.as_p }}
+        {{ form.as_div }}
+
+        <!-- ul 태그를 위에 하나 만들어주어야 합니다. 자주 사용합니다. -->
+        <ul>
+            {{ form.as_ul }}
+        </ul>
+
+        <!-- ol 태그, 거의 사용하지 않습니다. -->
+        <ol>
+            {{ form.as_ol }}
+        </ol>
+
+        <!-- table 태그를 위에 하나 만들어주어야 합니다. -->
+        <table>
+            {{ form.as_table }}
+        </table>
+
+        <!-- 필드를 하나씩 나열합니다. -->
+        {{ form.title }}
+        {{ form.contents }}
+
+    {% endcomment %}
+    
+    {{ form }}
+
+    <button type="submit">저장</button>
+</form>
