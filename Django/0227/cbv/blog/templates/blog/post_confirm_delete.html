@@ -1,0 +1,7 @@
+<h2>Delete</h2>
+<form method="post">
+    {% csrf_token %}
+    <p>"{{ object.title }}"을 정말로 삭제하시겠습니까?</p>
+    <a href="{% url 'blog_details' object.pk %}">취소</a>
+    <button type="submit">삭제</button>
+</form>
