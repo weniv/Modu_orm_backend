@@ -1,0 +1,5 @@
+<ul>
+    {% for blog in blogs %}
+    <li><a href="/blog/{{blog.id}}">{{blog.title}}</a></li>
+    {% endfor %}
+</ul>
