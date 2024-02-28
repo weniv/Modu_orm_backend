@@ -1,0 +1,30 @@
+<h1>{{ post.title }}</h1>
+<p>{{ post.content|linebreaks }}</p>
+<p>{{ post.author }}</p>
+
+<video controls>
+    <source src="{{ post.video_file.url }}"></source>      
+</video>
+
+<!-- 로그인을 했고, 내가 이 글에 글쓴이라고 한다면 삭제와 업데이트 버튼 노출 -->
+{% if user.is_authenticated and user == post.author %}
+    <a href="{% url 'tube_update' post.pk %}">수정</a>
+    <form action="{% url 'tube_delete' post.pk %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="삭제">
+    </form>
+{% endif %}
+
+{% for tag in post.tags.all %}
+    <a href="/tube/tag/{{ tag.name }}">#{{ tag.name }}</a>
+{% endfor %}
+
+{% for comment in post.comments.all %}
+    <p>{{ comment.message }}</p>
+{% endfor %}
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit">
+</form>

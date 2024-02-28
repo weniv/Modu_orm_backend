@@ -1,0 +1,19 @@
+{# 여기서 posts는 post의 objects.all() #}
+{# 여기서 post는 post의 objects.get() #}
+
+{% for post in posts %}
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+    <p>{{ post.author }}</p>
+    <!-- 필드에 없어도 1:N으로 연결되었으면 1쪽에서도 접근 가능합니다. N쪽에서는 변수명이 있기 때문에 당연히 접근이 가능합니다. -->
+    <!-- 그렇지만 아래처럼 접근하면 None입니다! 이유는 comments 전체를 로딩할 수가 없습니다. -->
+    <p>{{ post.comments }}</p>
+    <p>{{ post.tags }}</p>
+    {% for comment in post.comments.all %}
+        <p>{{ comment.message }}</p>
+    {% endfor %}
+    {% for tag in post.tags.all %}
+        <p>{{ tag.name }}</p>
+    {% endfor %}
+    <hr>
+{% endfor %}
