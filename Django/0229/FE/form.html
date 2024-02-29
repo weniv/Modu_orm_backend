@@ -1,0 +1,32 @@
+<form action="http://127.0.0.1:8000/blog/" method="post">
+    <input type="text" id="title" name="title" placeholder="제목">
+    <input type="text" id="content" name="content" placeholder="내용">
+    <input type="submit" id="submit_form" value="제출">
+</form>
+<script>
+    function getCookie(name) {
+        let value = "; " + document.cookie;
+        let parts = value.split("; " + name + "=");
+        if (parts.length == 2) return parts.pop().split(";").shift();
+    }
+    
+    let csrfToken = getCookie('csrftoken');
+
+    // submit_form을 눌렀을 때 이벤트가 정지되게 하고 fetch로 데이터가 전송되게 함
+    document.getElementById('submit_form').addEventListener('click', function(e) {
+        e.preventDefault();
+        let title = document.getElementById('title').value;
+        let content = document.getElementById('content').value;
+        fetch("http://127.0.0.1:8000/blog/", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": csrfToken,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                title: title,
+                content: content
+            })
+        });
+    })
+</script>
