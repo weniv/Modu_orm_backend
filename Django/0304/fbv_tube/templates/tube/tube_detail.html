@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="detail-container m-6 space-y-4">
+    
+    <video class="w-100" controls>
+        <source src="{{ post.video_file.url }}"></source>      
+    </video>
+
+    <h2 class="font-bold text-xl">{{ post.title }}</h2>
+    <p>{{ post.author }}</p>
+
+    <!-- 구독을 했을 경우 구독중 버튼을 구독을 안했을 경우 구독 버튼을 노출-->
+    {% if user.is_authenticated and user != post.author %}
+        {# 'user in {{ post.author.subscribers.all }}'는 동작하지 않습니다. {{ post.author.subscribers.all }}는 그냥 순회돌면 쿼리셋입니다. #}
+        {% if is_subscribed %}
+            <form action="{% url 'tube_unsubscribe' post.pk post.author.pk %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="구독중" class="border border-gray-200 p-2 rounded-lg">
+            </form>
+        {% else %}
+            <form action="{% url 'tube_subscribe' post.pk post.author.pk %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="구독" class="border border-gray-200 p-2 rounded-lg">
+            </form>
+        {% endif %}
+    {% endif %}
+
+    <div class="bg-gray-200 p-4 rounded-lg text-sm">
+        <p>조회수 {{ post.view_count }}회 · {{ post.created_at|timesince }} 전</p>
+        {{ post.content|linebreaks }}
+    </div>
+
+    {% for tag in post.tags.all %}
+        <a class="text-blue-600" href="/tube/tag/{{ tag.name }}">#{{ tag.name }}</a>
+    {% endfor %}
+
+    <!-- 로그인을 했고, 내가 이 글에 글쓴이라고 한다면 삭제와 업데이트 버튼 노출 -->
+    {% if user.is_authenticated and user == post.author %}
+    <div class="flex gap-4">
+        <a class="border border-gray-200 p-2 rounded-lg" href="{% url 'tube_update' post.pk %}">수정</a>
+        <form class="border border-gray-200 p-2 rounded-lg" action="{% url 'tube_delete' post.pk %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="삭제">
+        </form>
+    </div>
+    {% endif %}
+
+    <p class="font-bold text-xl">댓글 {{ post.comments.count }}개</p>
+    <form action="" method="post" class="flex p-4 space-y-4 space-x-2 bg-white shadow-md rounded-lg">
+        {% csrf_token %}
+        <div class="flex w-20 items-center justify-center">
+            <label for="id_message" class="text-sm font-medium text-gray-700 text-center">뎃글 작성:</label>
+        </div>
+        
+        <textarea name="message" cols="40" required="" id="id_message" class="mt-1 block w-3/4 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea>
+        <input type="submit" value="작성" class="py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+    </form>
+    
+    {% for comment in post.comments.all %}
+        <div class="border border-gray-200 p-4 rounded-lg">
+            <p><span class="font-bold">{{ comment.author }}</span> · {{ comment.created_at|timesince }} 전</p>
+            <p>{{ comment.message }}</p>
+            {% if user.is_authenticated and user == comment.author %}
+            <div class="flex gap-4">
+                <form class="" action="{% url 'tube_comment_delete' comment.pk %}" method="post">
+                    {% csrf_token %}
+                    <input class="text-gray-500 hover:text-gray-800 text-sm" type="submit" value="삭제">
+                </form>
+            </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+</section>
+{% endblock %}

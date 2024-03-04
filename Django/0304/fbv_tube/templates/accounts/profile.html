@@ -1,0 +1,17 @@
+<h1>개인 프로필 페이지</h1>
+<p>{{ user }}</p>
+<p>{{ user.is_authenticated }}</p>
+<p>{{ user.username }}</p>
+<p>{{ user.email }}</p>
+<p>{{ user.first_name }}</p>
+<p>{{ user.last_name }}</p>
+<p>{{ user.is_staff }}</p>
+<p>{{ user.is_active }}</p>
+<p>{{ user.is_superuser }}</p>
+<p>{{ user.last_login }}</p>
+<p>{{ user.date_joined }}</p>
+
+<form action="{% url 'user_logout' %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="로그아웃">
+</form>

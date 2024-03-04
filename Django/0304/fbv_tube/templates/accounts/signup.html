@@ -1,0 +1,13 @@
+<form action="" method="post">
+    {% csrf_token %}
+    <label for="username_id">아이디</label>
+    <input id="username_id" type="text" name="username">
+
+    <label for="email_id">이메일</label>
+    <input id="email_id" type="text" name="email">
+    
+    <label for="password_id">비밀번호</label>
+    <input id="password_id" type="password" name="password">
+    
+    <button type="submit">회원가입</button>
+</form>

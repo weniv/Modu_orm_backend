@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="grid grid-cols-4 gap-4 p-4 m-6">
+{% for post in posts %}
+    <section>
+        <!-- 클랙했을 때 해당 게시물로 이동 -->
+        <a href="{% url 'tube_detail' post.pk %}">
+            <!-- 썸네일 이미지가 있는지 확인 후 로드 -->
+            {% if post.thumbnail_image %}
+                <img class="w-[100%] rounded-lg" src="{{ post.thumbnail_image.url }}" alt="{{ post.title }}">
+            {% endif %}
+            <h2 class="font-bold">{{ post.title }}</h2>
+            <!-- 조회수와 업로드 날짜 -->
+            <!-- ㄱ 하고 한자 눌러 단축키 입력하세요. -->
+            <p>조회수 {{ post.view_count }}회 · {{ post.created_at|timesince }} 전</p>
+            <p>{{ post.author }}</p>
+            <!-- 태그 추가 -->
+            {% for tag in post.tags.all %}
+                <a href="{% url 'tube_tag' tag.name %}">{{ tag.name }}</a>
+            {% endfor %}
+        </a>
+    </section>
+{% endfor %}
+</div>
+{% endblock %}

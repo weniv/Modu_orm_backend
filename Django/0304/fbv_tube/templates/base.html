@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tube 클론</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <header class="py-2 flex justify-around items-center border-b border-gray-300">
+        <h1 class="text-xl font-bold"><a href="{% url 'tube_list' %}">Tube</a></h1>
+        <form action="" method="get">
+            <input class="border border-gray-300 rounded-xl px-4 py-[5px] text-xs" type="text" name="q" value="{{ request.GET.q }}">
+            <input class="bg-blue-200 text-white rounded px-2 py-[5px] text-xs" type="submit" value="검색">
+        </form>
+        <nav>
+            <ul class="flex justify-end gap-2">
+                {% if user.is_authenticated %}
+                    <li class="inline-block ml-3 border border-gray-300 rounded px-2 py-[5px] text-xs"><a href="{% url 'tube_create' %}">글쓰기</a></li>
+                    <li class="inline-block ml-3 border border-gray-300 rounded px-2 py-[5px] text-xs"><a href="{% url 'user_profile' %}">프로필</a></li>
+                {% else %}
+                    <li class="inline-block ml-3 border border-gray-300 rounded px-2 py-[5px] text-xs"><a href="{% url 'user_login' %}">로그인</a></li>
+                    <li class="inline-block ml-3 border border-gray-300 rounded px-2 py-[5px] text-xs"><a href="{% url 'user_signup' %}">회원가입</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
