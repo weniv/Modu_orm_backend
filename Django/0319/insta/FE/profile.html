@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>profile</title>
+    <!-- tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        a {
+            text-decoration: none;
+            color: black;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            width: 100%;
+            height: 60px;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        header > ul {
+            display: flex;
+            justify-content: space-around;
+            width: 300px;
+        }
+        header > ul > li {
+            list-style: none;
+            color: black;
+        }
+        header > ul > li > a {
+            text-decoration: none;
+            color: black;
+        }
+        .card-section {
+            width: 500px;
+            border: 1px solid #999;
+            margin: 10px;
+            display: flex;
+            flex-direction: column;
+            border-radius: 10px;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .card-author-info {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+        }
+        .card-author-info > img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+        .card-author-info > h2 {
+            margin-left: 10px;
+            font-size: 16px;
+            font-weight: 400;
+        }
+        .card-content {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>WENIGRAM</h1>
+        <ul>
+            <li><a href="#">MENU1</a></li>
+            <li><a href="#">MENU2</a></li>
+            <li><a href="#">MENU3</a></li>
+            <li class="login-field"><a href="#">Profile</a></li>
+        </ul>
+    </header>
+    <main>
+        
+    </main>
+    <footer>copyright 2024. weniv all rights reserved.</footer>
+    <script>
+        // 1. JWT 토큰이 있는지 확인한다.
+        // 2. 토큰이 없거나, 유효하지 않은 토큰이면 로그인 페이지로 이동한다.
+        // 3. 토큰이 있고, 유효한 토큰이라면 posts를 가져온다.
+        // 4. posts를 가져와서 posts를 렌더링한다.
+        document.addEventListener('DOMContentLoaded', () => {
+            const access = localStorage.getItem('access');
+            const refresh = localStorage.getItem('refresh');
+            if (!access){
+                location.href = 'login.html';
+            }
+
+            const token = localStorage.getItem('access');
+            const payload = token.split('.')[1];
+            const decoded = atob(payload);
+            console.log(decoded);
+            const userid = JSON.parse(decoded).user_id;
+
+            fetch(`http://127.0.0.1:8000/users/profile/${userid}/`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${access}`,
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                return data;
+            })
+            .then(data => {
+                const main = document.querySelector('main');
+                main.innerHTML = createCard(data);
+            })
+        })
+
+        function createCard(data) {
+        return `
+            <div class="max-w-sm rounded overflow-hidden shadow-lg">
+            <img class="w-full" src="${data.profile_picture}" alt="Profile Picture">
+            <div class="px-6 py-4">
+                <div class="font-bold text-xl mb-2">${data.username}</div>
+                <p class="text-gray-700 text-base">
+                <strong class="font-bold">Email:</strong> ${data.email}<br>
+                <strong class="font-bold">Bio:</strong> ${data.bio}
+                </p>
+            </div>
+            </div>
+        `;
+        }
+    </script>
+</body>
+</html>

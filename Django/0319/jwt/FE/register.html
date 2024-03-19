@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>register</title>
+</head>
+<body>
+    <form action="http://127.0.0.1:8000/accounts/join/" method="post">
+        이메일 : <input type="text" name="email"><br>
+        패스워드1 : <input type="password" name="password1"><br>
+        패스워드2 : <input type="password" name="password2"><br>
+        <input type="button" value="회원가입">
+    </form>
+    <script>
+        const register = document.querySelector('input[type="button"]');
+        register.addEventListener('click', (e) => {
+            e.preventDefault(); // submit의 기본동작을 막는다.
+            const email = document.querySelector('input[name="email"]').value;
+            const password1 = document.querySelector('input[name="password1"]').value;
+            const password2 = document.querySelector('input[name="password2"]').value;
+            const data = {
+                email: email,
+                password1: password1,
+                password2: password2
+            }
+            console.log(data)
+            fetch('http://127.0.0.1:8000/accounts/join/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            }).then(response => response.json())
+            .then(data => {
+                console.log(data)
+            })
+        })
+    </script>
+</body>
+</html>

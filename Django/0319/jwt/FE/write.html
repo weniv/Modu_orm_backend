@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>write</title>
+</head>
+<body>
+    <!-- 해당 코드는 셈플 코드 입니다. -->
+    <form action="" method="">
+        email : <input type="text" name="email"><br>
+        패스워드 : <input type="password" name="password"><br>
+        <input id="login" type="button" value="로그인">
+    </form>
+    <form action="" method="">
+        title: <input type="text" name="title"><br>
+        content: <input type="text" name="content"><br>
+        <input id="write" type="button" value="게시물작성">
+    </form>
+    <script>
+        const login = document.querySelector('#login');
+        const write = document.querySelector('#write');
+
+        login.addEventListener('click', (e) => {
+            e.preventDefault(); // submit의 기본동작을 막는다.
+            const email = document.querySelector('input[name="email"]').value;
+            const password = document.querySelector('input[name="password"]').value;
+            const data = {
+                email: email,
+                password: password
+            }
+            console.log(data)
+
+            // fetch를 이용해서 서버에 POST 요청을 보낸다.
+            fetch('http://127.0.0.1:8000/accounts/login/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                localStorage.setItem('access_token', data.access_token)
+                localStorage.setItem('refresh_token', data.refresh_token)
+            })
+
+        })
+
+
+        write.addEventListener('click', (e) => {
+            e.preventDefault(); // submit의 기본동작을 막는다.
+            const title = document.querySelector('input[name="title"]').value;
+            const content = document.querySelector('input[name="content"]').value;
+            const data = {
+                title: title,
+                content: content
+            }
+            console.log(data)
+            const token = localStorage.getItem('access_token')
+
+            if (token){
+                // fetch를 이용해서 서버에 POST 요청을 보낸다.
+                fetch('http://127.0.0.1:8000/blog/list/', {
+                    method: 'POST',
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                })
+            } else {
+                alert('로그인이 필요합니다.')
+            }
+        })
+    </script>
+</body>
+</html>

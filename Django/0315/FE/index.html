@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <main id="main-container"></main>
+<script>
+fetch('http://127.0.0.1:8000/blog/')
+.then(response => response.json())
+.then(data => {
+    const mainContainer = document.getElementById('main-container')
+    data.forEach(post => {
+        const postElement = document.createElement('div')
+        postElement.innerHTML = `
+            <h1>${post.title}</h1>
+            <p>${post.content}</p>
+        `
+        mainContainer.appendChild(postElement)
+    })
+})
+</script>
+</body>
+</html>

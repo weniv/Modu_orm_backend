@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+</head>
+<body>
+    <header>
+        <h1>WENIGRAM</h1>
+        <ul>
+            <li><a href="#">MENU1</a></li>
+            <li><a href="#">MENU2</a></li>
+            <li><a href="#">MENU3</a></li>
+            <li class="login-field"><a href="#">Profile</a></li>
+        </ul>
+    </header>
+    <main>
+        <form action="">
+            <input type="text" name="id" placeholder="ID">
+            <input type="password" name="pw" placeholder="PW">
+            <input type="submit" value="Login">
+        </form>
+    </main>
+    <footer>copyright 2024. weniv all rights reserved.</footer>
+    <script>
+        const loginField = document.querySelector('.login-field');
+        const id = document.querySelector('input[name="id"]');
+        const pw = document.querySelector('input[name="pw"]');
+        const submit = document.querySelector('input[type="submit"]');
+
+        submit.addEventListener('click', (e) => {
+            e.preventDefault();
+            const username = id.value;
+            const password = pw.value;
+            if (username === ""){
+                alert('아이디를 입력해주세요.');
+                id.focus();
+                return;
+            }
+            if (password === ""){
+                alert('비밀번호를 입력해주세요.');
+                pw.focus();
+                return;
+            }
+            fetch('http://127.0.0.1:8000/api/token/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password,
+                }),
+            })
+            .then(res => {
+                // console.log(res);
+                // console.log(res.json());
+                // console.log('완료')
+                return res.json();
+            })
+            .then(data => {
+                console.log(data);
+                localStorage.setItem('access', data.access);
+                localStorage.setItem('refresh', data.refresh);
+                // loginField.innerHTML = `<a href="#">${username}</a>`;
+            })
+            .then(res => {
+                location.href = 'index.html';
+                // json web token PAYLOAD를 디코딩하는 코드
+                // const token = localStorage.getItem('access');
+                // const payload = token.split('.')[1];
+                // const decoded = atob(payload);
+                // console.log(decoded);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        });
+    </script>
+</body>
+</html>

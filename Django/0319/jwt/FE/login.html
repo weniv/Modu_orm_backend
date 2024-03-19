@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+</head>
+<body>
+    <form action="" method="">
+        이메일 : <input type="text" name="email"><br>
+        패스워드 : <input type="password" name="password"><br>
+        <input id="login" type="button" value="로그인">
+    </form>
+    <script>
+        const login = document.querySelector('#login');
+        login.addEventListener('click', (e) => {
+            e.preventDefault(); // submit의 기본동작을 막는다.
+            const email = document.querySelector('input[name="email"]').value;
+            const password = document.querySelector('input[name="password"]').value;
+            const data = {
+                email: email,
+                password: password
+            }
+            console.log(data)
+
+
+            // fetch를 이용해서 서버에 POST 요청을 보낸다.
+            fetch('http://127.0.0.1:8000/accounts/login/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+            })
+
+            // 로그인이 되는 로직 100줄
+
+            // form을 없애는 코드
+            // document.querySelector('form').remove();
+            // document.write('이호준님 환영합니다!')
+
+            // 또는 /home으로 리다이렉트 되는 코드
+            // 리다이렉트 될 때 주의할 점: 토큰 값은 어딘가에 유지가 되고 있어야 로그인을 확인할 수 있습니다.
+            // window.location.href = 'http://....
+        })
+    </script>
+</body>
+</html>
